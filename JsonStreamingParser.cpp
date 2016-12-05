@@ -26,13 +26,17 @@ See more at http://blog.squix.ch and https://github.com/squix78/json-streaming-p
 #include "JsonStreamingParser.h"
 
 JsonStreamingParser::JsonStreamingParser() {
+    reset();
+}
+
+void JsonStreamingParser::reset() {
     state = STATE_START_DOCUMENT;
     bufferPos = 0;
     unicodeEscapeBufferPos = 0;
     unicodeBufferPos = 0;
     characterCounter = 0;
 }
-
+    
 void JsonStreamingParser::setListener(JsonListener* listener) {
   myListener = listener;
 }
@@ -430,7 +434,7 @@ void JsonStreamingParser::endDocument() {
 void JsonStreamingParser::endTrue() {
     buffer[bufferPos] = '\0';
     String value = String(buffer);
-    if (value.equals("true")) {
+    if (value == "true") {
       myListener->value("true");
     } else {
       // throw new ParsingError($this->_line_number, $this->_char_number,
@@ -443,7 +447,7 @@ void JsonStreamingParser::endTrue() {
 void JsonStreamingParser::endFalse() {
     buffer[bufferPos] = '\0';
     String value = String(buffer);
-    if (value.equals("false")) {
+    if (value == "false") {
       myListener->value("false");
     } else {
       // throw new ParsingError($this->_line_number, $this->_char_number,
@@ -456,7 +460,7 @@ void JsonStreamingParser::endFalse() {
 void JsonStreamingParser::endNull() {
     buffer[bufferPos] = '\0';
     String value = String(buffer);
-    if (value.equals("null")) {
+    if (value == "null") {
       myListener->value("null");
     } else {
       // throw new ParsingError($this->_line_number, $this->_char_number,

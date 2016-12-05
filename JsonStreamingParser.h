@@ -25,7 +25,11 @@ See more at http://blog.squix.ch and https://github.com/squix78/json-streaming-p
 
 #pragma once
 
+#ifdef ARDUINO
 #include <Arduino.h>
+#else
+#include "MockArduino.h"
+#endif
 #include "JsonListener.h"
 
 #define STATE_START_DOCUMENT     0
@@ -131,5 +135,5 @@ class JsonStreamingParser {
     JsonStreamingParser();
     void parse(char c);
     void setListener(JsonListener* listener);
-
+    void reset();
 };
