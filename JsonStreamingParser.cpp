@@ -210,11 +210,11 @@ void JsonStreamingParser::endString() {
     stackPos--;
     if (popped == STACK_KEY) {
       buffer[bufferPos] = '\0';
-      myListener->key(String(buffer));
+      myListener->key(buffer);
       state = STATE_END_KEY;
     } else if (popped == STACK_STRING) {
       buffer[bufferPos] = '\0';
-      myListener->value(String(buffer));
+      myListener->value(buffer);
       state = STATE_AFTER_VALUE;
     } else {
       // throw new ParsingError($this->_line_number, $this->_char_number,
@@ -404,7 +404,7 @@ void JsonStreamingParser::endUnicodeSurrogateInterstitial() {
 
 void JsonStreamingParser::endNumber() {
     buffer[bufferPos] = '\0';
-    String value = String(buffer);
+    // String value = String(buffer);
     //float result = 0.0;
     //if (doesCharArrayContain(buffer, bufferPos, '.')) {
     //  result = value.toFloat();
@@ -412,7 +412,7 @@ void JsonStreamingParser::endNumber() {
       // needed special treatment in php, maybe not in Java and c
     //  result = value.toFloat();
     //}
-    myListener->value(value.c_str());
+    myListener->value(buffer);
     bufferPos = 0;
     state = STATE_AFTER_VALUE;
   }
@@ -433,8 +433,8 @@ void JsonStreamingParser::endDocument() {
 
 void JsonStreamingParser::endTrue() {
     buffer[bufferPos] = '\0';
-    String value = String(buffer);
-    if (value == "true") {
+    // String value = String(buffer);
+    if (strncmp(buffer, "true", 4) == 0) {
       myListener->value("true");
     } else {
       // throw new ParsingError($this->_line_number, $this->_char_number,
@@ -446,8 +446,8 @@ void JsonStreamingParser::endTrue() {
 
 void JsonStreamingParser::endFalse() {
     buffer[bufferPos] = '\0';
-    String value = String(buffer);
-    if (value == "false") {
+    // String value = String(buffer);
+    if (strncmp(buffer, "false",5) == 0 ) {
       myListener->value("false");
     } else {
       // throw new ParsingError($this->_line_number, $this->_char_number,
@@ -459,8 +459,8 @@ void JsonStreamingParser::endFalse() {
 
 void JsonStreamingParser::endNull() {
     buffer[bufferPos] = '\0';
-    String value = String(buffer);
-    if (value == "null") {
+    // String value = String(buffer);
+    if (strncmp(buffer, "null", 4) == 0) {
       myListener->value("null");
     } else {
       // throw new ParsingError($this->_line_number, $this->_char_number,

@@ -40,9 +40,9 @@ class JsonListener {
   
     virtual void startDocument() = 0;
 
-    virtual void key(String key) = 0;
+    virtual void key(const char *key) = 0;
 
-    virtual void value(String value) = 0;
+    virtual void value(const char *value) = 0;
 
     virtual void endArray() = 0;
 
