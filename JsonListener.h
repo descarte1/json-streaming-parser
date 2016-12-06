@@ -25,7 +25,11 @@ See more at http://blog.squix.ch and https://github.com/squix78/json-streaming-p
 
 #pragma once
 
+#ifdef ARDUINO
 #include <Arduino.h>
+#else
+#include "MockArduino.h"
+#endif
 
 class JsonListener {
   private:
