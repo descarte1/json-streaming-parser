@@ -39,8 +39,8 @@ stream whatever you are interested in. In order to do that you will create a sub
 implement methods which will be notified in case of certain events in the feed occure. Available events are:
 
  * startDocument()
- * key(String key)
- * value(String value)
+ * key(const char *key)
+ * value(const char *value)
  * endArray()
  * endObject()
  * endDocument()
