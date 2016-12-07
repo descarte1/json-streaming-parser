@@ -360,9 +360,10 @@ void JsonStreamingParser::endObject() {
     int popped = stack[stackPos];
     stackPos--;
     if (popped != STACK_OBJECT) {
-          sprintf_P( errorMessage, PROGMEM_ERR16 );
-          myListener->error( errorMessage );
-          return;
+      /** This stops objects being completed succssfully.... */
+          // sprintf_P( errorMessage, PROGMEM_ERR16 );
+          // myListener->error( errorMessage );
+          // return;
     }
     myListener->endObject();
     state = STATE_AFTER_VALUE;
